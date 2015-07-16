@@ -10,7 +10,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
-  config.vm.provision :shell, path: "./scripts/provisioner.sh"
+  config.vm.provision :shell, path: "./provisioner.sh"
   config.vm.network :forwarded_port, guest: 8080, host: 8080
   config.vm.synced_folder ".", "/vagrant"
   config.ssh.forward_agent = true
