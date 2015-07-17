@@ -3,4 +3,5 @@ node_modules/
 npm-debug.log
 .idea/
 dist/
+www/
 .DS_Store
