@@ -1,4 +1,4 @@
 import React from 'react'
-import Test from './components/test'
+import JobsList from './components/JobsList'
 
-React.render(<Test />, document.getElementById('app-body'))
+React.render(<JobsList />, document.getElementById('app-body'))
