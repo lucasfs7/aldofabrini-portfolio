@@ -1,4 +1,4 @@
 import React from 'react'
-import JobsList from './components/JobsList'
+import Home from './components/Home'
 
-React.render(<JobsList />, document.getElementById('app-body'))
+React.render(<Home />, document.getElementById('app-body'))
