@@ -4,6 +4,10 @@ import Jobs from '../components/Jobs'
 import JobStore from '../stores/JobStore'
 
 class JobsList extends React.Component {
+  componentDidMount() {
+    JobStore.fetchJobs();
+  }
+
   render() {
     return (
       <AltContainer store={JobStore}>
