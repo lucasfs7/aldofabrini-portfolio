@@ -16,7 +16,7 @@ class Login extends React.Component {
   
     if (this.props.user.uid) {
       window.location.hash = ''
-      return
+      return (<div className="hidden"></div>)
     }
   
     if (this.props.loading) {

@@ -15,7 +15,7 @@ class Home extends React.Component {
       <AltContainer store={UserStore}>
         <Header signOut={UserStore.signOut} />
         <JobsList />
-        <Page />
+        <Page signIn={UserStore.signIn} />
       </AltContainer>
     )
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import About from '../components/About'
-import LoginContainer from '../components/LoginContainer'
+import Login from '../components/Login'
 import JobDetails from '../components/JobDetails'
 
 class Page extends React.Component {
@@ -26,13 +26,13 @@ class Page extends React.Component {
       let Child;
       switch (this.state.currentPage) {
         case 'about': Child = About; break;
-        case 'login': Child = LoginContainer; break;
+        case 'login': Child = Login; break;
         default:      Child = JobDetails;
       }
 
       return (
         <div id="page">
-          <Child route={this.state.route} />
+          <Child route={this.state.route} {...this.props} />
         </div>
       )
     }
