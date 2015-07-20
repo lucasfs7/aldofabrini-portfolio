@@ -9,7 +9,6 @@ var JobSource = {
           const fbRef = new Firebase('https://aldo-fabrini-portfolio.firebaseio.com/jobs')
           fbRef.on('value', dataSnapshot => {
             let data = dataSnapshot.val()
-            console.log(data)
             if (data !== null) {
               resolve(data)
             } else {
