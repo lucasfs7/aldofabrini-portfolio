@@ -32,7 +32,7 @@ class Page extends React.Component {
 
       return (
         <div id="page">
-          <Child route={this.state.route} {...this.props} />
+          <Child {...this.props} route={this.state.currentPage} />
         </div>
       )
     }
