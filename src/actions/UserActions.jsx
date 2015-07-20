@@ -1,8 +1,8 @@
 import alt from '../alt'
 
 class UserActions {
-  updateUser(jobs) {
-    this.dispatch(jobs)
+  updateUser(user) {
+    this.dispatch(user)
   }
 
   signIn() {

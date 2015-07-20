@@ -7,8 +7,8 @@ import UserActions from '../actions/UserActions'
 class LoginContainer extends React.Component {
   render() {
     return (
-      <AltContainer store={UserStore} actions={UserActions}>
-        <Login />
+      <AltContainer store={UserStore}>
+        <Login signIn={UserStore.signIn} />
       </AltContainer>
     )
   }

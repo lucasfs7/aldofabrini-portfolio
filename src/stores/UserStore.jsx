@@ -19,6 +19,7 @@ class UserStore {
 
   handleUpateUser(user) {
     this.loading = false
+    this.errorMessage = false
     this.user = user
   }
 

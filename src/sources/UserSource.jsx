@@ -2,11 +2,11 @@ import UserActions from '../actions/UserActions'
 import Firebase from 'firebase'
 
 var UserSource = {
-  signIn(credentials) {
+  signIn() {
     return {
-      remote() {
+      remote(store, credentials) {
         return new Promise((resolve, reject) => {
-          if (!crentials.email && !credentials.password) {
+          if (!credentials.email && !credentials.password) {
             reject('E-mail and password can\'t be blank.')
             return
           }
