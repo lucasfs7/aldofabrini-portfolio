@@ -9,7 +9,7 @@ class Header extends React.Component {
   render() {
     var btns = []
     if (this.props.user.uid) {
-      btns.push(<button type="button"><i className="fa fa-plus" />add job</button>)
+      btns.push(<a href="#new"><i className="fa fa-plus" />add job</a>)
       btns.push(<button type="button" onClick={this.handleSignOut.bind(this)}>sign out</button>)
     }
     btns.push(<a href="#">about</a>)
