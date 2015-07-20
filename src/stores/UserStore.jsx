@@ -2,7 +2,7 @@ import alt from '../alt'
 import UserActions from '../actions/UserActions'
 import UserSource from '../sources/UserSource'
 
-class JobStore {
+class UserStore {
   constructor() {
     this.user = {}
     this.errorMessage = null

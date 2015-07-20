@@ -1,6 +1,6 @@
 import alt from '../alt'
 
-class JobActions {
+class UserActions {
   updateUser(jobs) {
     this.dispatch(jobs)
   }
@@ -15,4 +15,4 @@ class JobActions {
 
 }
 
-export default alt.createActions(JobActions)
+export default alt.createActions(UserActions)
