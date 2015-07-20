@@ -7,13 +7,18 @@ class Header extends React.Component {
   }
 
   render() {
+    var btns = []
+    if (this.props.user.uid) {
+      btns.push(<button type="button"><i className="fa fa-plus" />add job</button>)
+      btns.push(<button type="button" onClick={this.handleSignOut.bind(this)}>sign out</button>)
+    }
+    btns.push(<a href="#">about</a>)
     return (
       <header>
         <h1>Aldo Fabrini</h1>
-        <a href="#about">about</a>
-        {(this.props.user.uid
-        ? <button type="button" onClick={this.handleSignOut.bind(this)}>sign out</button>
-        : '')}
+        <ul className="btns-list">
+          {btns.map((btn, i) => (<li key={i}>{btn}</li>))}
+        </ul>
       </header>
     )
   }
