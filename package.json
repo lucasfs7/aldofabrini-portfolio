@@ -20,6 +20,7 @@
     "gulp-jade": "^1.0.1",
     "gulp-stylus": "^2.0.5",
     "gulp-util": "^3.0.6",
+    "lodash": "^3.10.0",
     "pm2": "^0.14.3",
     "react": "^0.13.3",
     "vinyl-source-stream": "^1.1.0"
