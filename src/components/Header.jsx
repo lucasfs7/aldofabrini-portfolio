@@ -12,7 +12,7 @@ class Header extends React.Component {
       btns.push(<a href="#new"><i className="fa fa-plus" />add job</a>)
       btns.push(<button type="button" onClick={this.handleSignOut.bind(this)}>sign out</button>)
     }
-    btns.push(<a href="#">about</a>)
+    btns.push(<a href="#about">about</a>)
     return (
       <header>
         <h1>Aldo Fabrini</h1>
