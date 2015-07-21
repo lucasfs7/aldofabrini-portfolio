@@ -14,12 +14,14 @@ class Home extends React.Component {
 
   render() {
     return (
-      <AltContainer store={UserStore}>
+      <AltContainer 
+        stores={{
+          userProps: UserStore,
+          jobsProps: JobStore
+        }}>
         <Header signOut={UserStore.signOut} />
-        <AltContainer store={JobStore}>
-          <Jobs />
-        </AltContainer>
-        <Page signIn={UserStore.signIn} />
+        <Jobs />
+        <Page signIn={UserStore.signIn} getJob={JobStore.getJob.bind(JobStore)} />
       </AltContainer>
     )
   }

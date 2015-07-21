@@ -2,13 +2,15 @@ import React from 'react'
 
 class Jobs extends React.Component {
   render() {
-    if (this.props.errorMessage) {
+    var jobsProps = this.props.jobsProps
+  
+    if (jobsProps.errorMessage) {
       return (
-        <p>{this.props.errorMessage}</p>
+        <p>{jobsProps.errorMessage}</p>
       );
     }
 
-    if (this.props.loading) {
+    if (jobsProps.loading) {
       return (
         <p>Loading</p>
       )
@@ -16,7 +18,7 @@ class Jobs extends React.Component {
 
     return (
       <ul>
-        {this.props.jobs.map((job, i) => {
+        {jobsProps.jobs.map((job, i) => {
           return (
             <li key={i}>
               <a href={`#${job.slug}`}>{job.name}</a>

@@ -7,8 +7,9 @@ class Header extends React.Component {
   }
 
   render() {
+    var userProps = this.props.userProps
     var btns = []
-    if (this.props.user.uid) {
+    if (userProps.user.uid) {
       btns.push(<a href="#new"><i className="fa fa-plus" />add job</a>)
       btns.push(<button type="button" onClick={this.handleSignOut.bind(this)}>sign out</button>)
     }
