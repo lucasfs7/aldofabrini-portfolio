@@ -8,11 +8,13 @@ class JobStore {
     this.jobs = []
     this.errorMessage = null
     this.loading = false
+    this.editing = false
 
     this.bindListeners({
       handleUpateJobs: JobActions.UPDATE_JOBS,
       handleFetchJobs: JobActions.FETCH_JOBS,
-      handleJobsFailed: JobActions.JOBS_FAILED
+      handleJobsFailed: JobActions.JOBS_FAILED,
+      handleSetEditing: JobActions.SET_EDITING
     })
 
     this.exportAsync(JobSource)
@@ -21,6 +23,10 @@ class JobStore {
       getJob: this.getJob,
       jobSchema: this.jobSchema
     })
+  }
+  
+  handleSetEditing() {
+    this.editing = !this.editing
   }
   
   jobSchema() {

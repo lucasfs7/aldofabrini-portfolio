@@ -12,7 +12,10 @@ class JobActions {
   jobsFailed(errorMessage) {
     this.dispatch(errorMessage);
   }
-
+  
+  setEditing() {
+    this.dispatch()
+  }
 }
 
 export default alt.createActions(JobActions)

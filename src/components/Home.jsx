@@ -5,6 +5,7 @@ import Jobs from '../components/Jobs'
 import Page from '../components/Page'
 import UserStore from '../stores/UserStore'
 import JobStore from '../stores/JobStore'
+import JobActions from '../actions/JobActions'
 
 class Home extends React.Component {
   componentDidMount() {
@@ -24,7 +25,8 @@ class Home extends React.Component {
         <Page 
           signIn={UserStore.signIn} 
           getJob={JobStore.getJob.bind(JobStore)} 
-          jobSchema={JobStore.jobSchema}
+          jobSchema={JobStore.jobSchema} 
+          setEditing={JobActions.setEditing.bind(JobActions)}
         />
       </AltContainer>
     )
