@@ -14,11 +14,27 @@ class JobStore {
       handleFetchJobs: JobActions.FETCH_JOBS,
       handleJobsFailed: JobActions.JOBS_FAILED
     })
-    
+
     this.exportAsync(JobSource)
   
     this.exportPublicMethods({
-      getJob: this.getJob
+      getJob: this.getJob,
+      jobSchema: this.jobSchema
+    })
+  }
+  
+  jobSchema() {
+    return ({
+      name: {
+        short: 'Short title',
+        long: 'Job title'
+      },
+      client: {
+        short_name: 'Client',
+        name: 'Client name'
+      },
+      description: 'Job descrption goes here',
+      images: []
     })
   }
 
