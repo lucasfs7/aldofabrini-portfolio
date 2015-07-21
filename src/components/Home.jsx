@@ -21,7 +21,11 @@ class Home extends React.Component {
         }}>
         <Header signOut={UserStore.signOut} />
         <Jobs />
-        <Page signIn={UserStore.signIn} getJob={JobStore.getJob.bind(JobStore)} />
+        <Page 
+          signIn={UserStore.signIn} 
+          getJob={JobStore.getJob.bind(JobStore)} 
+          jobSchema={JobStore.jobSchema}
+        />
       </AltContainer>
     )
   }
