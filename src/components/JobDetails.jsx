@@ -65,7 +65,7 @@ class JobDetails extends React.Component {
       <div className="job-details">
         <h1 className="job-title">{name}</h1>
         <h2 className="job-client">{client}</h2>
-        <div className="job-description">{description}</div>
+        <div className="job-description" dangerouslySetInnerHTML={{__html: description}} />
         <ul className="job-images">
           {images.map((imgUrl, i) => {
             <li key={i}>
