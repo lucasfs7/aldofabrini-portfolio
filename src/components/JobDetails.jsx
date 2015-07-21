@@ -7,16 +7,18 @@ class JobDetails extends React.Component {
       this.state = {}
     } else {
       this.state = {
-        name: {
-          short: 'Short title',
-          long: 'Job title'
-        },
-        client: {
-          short_name: 'Client',
-          name: 'Client name'
-        },
-        description: 'Job descrption goes here',
-        images: []
+        job: {
+          name: {
+            short: 'Short title',
+            long: 'Job title'
+          },
+          client: {
+            short_name: 'Client',
+            name: 'Client name'
+          },
+          description: 'Job descrption goes here',
+          images: []
+        }
       }
     }
   }
@@ -41,15 +43,17 @@ class JobDetails extends React.Component {
   }
 
   render() {
+    if (!this.state.job) return (<div className="hidden"></div>)
+  
     return (
       <div className="job-details">
-        <h1 className="job-title">{this.state.name.long}</h1>
-        <h2 className="job-client">{this.state.client.name}</h2>
+        <h1 className="job-title">{this.state.job.name.long}</h1>
+        <h2 className="job-client">{this.state.job.client.name}</h2>
         <div className="job-description">
-          <p>{this.state.description}</p>
+          <p>{this.state.job.description}</p>
         </div>
         <ul className="job-images">
-          {this.state.images.map((imgUrl, i) => {
+          {this.state.job.images.map((imgUrl, i) => {
             <li key={i}>
               <img src={imgUrl} alt={`Image ${i}`} />
             </li>
