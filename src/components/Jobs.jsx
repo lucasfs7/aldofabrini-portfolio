@@ -19,7 +19,7 @@ class Jobs extends React.Component {
         {this.props.jobs.map((job, i) => {
           return (
             <li key={i}>
-              {job.name}
+              <a href={`#${job.slug}`}>{job.name}</a>
             </li>
           );
         })}
