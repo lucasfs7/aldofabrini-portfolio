@@ -1,6 +1,6 @@
 import React from 'react'
 import Editor from 'medium-editor'
-import { merge } from 'lodash'
+import { merge, deburr, trim, kebabCase } from 'lodash'
 
 class JobDetails extends React.Component {
   constructor(props) {
@@ -56,14 +56,22 @@ class JobDetails extends React.Component {
 
   handleSave(e) {
     e.preventDefault()
+    var job = this.getJob(this.props)
+    job.name.long = React.findDOMNode(this.refs.jobTitle).innerHTML
+    job.client.name = React.findDOMNode(this.refs.jobClient).innerHTML
+    job.description = React.findDOMNode(this.refs.jobDescription).innerHTML
+    job.slug = this.slugfy(job.name.long)
+    if (this.isNew()) job.isNew = true
+    this.props.saveJob(job)
+    window.location.hash = job.slug
   }
 
   startEditing(props) {
     var title, client, description
     var props = props || this.props
     props.setEditing(true)
-    title = new React.findDOMNode(this.refs.jobTitle)
-    client = new React.findDOMNode(this.refs.jobClient)
+    title = React.findDOMNode(this.refs.jobTitle)
+    client = React.findDOMNode(this.refs.jobClient)
     description = React.findDOMNode(this.refs.jobDescription)
     this.editor.singleLine = new Editor([title, client], this.editor.singleLineOptions)
     this.editor.multLine = new Editor(description, this.editor.multLineOptions)
@@ -158,6 +166,10 @@ class JobDetails extends React.Component {
         </div>
       </div>
     )
+  }
+
+  slugfy(str) {
+    return kebabCase(trim(deburr(str.toLowerCase().replace(/(<([^>]+)>)/ig, ' '))))
   }
 }
 

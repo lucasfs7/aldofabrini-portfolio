@@ -27,6 +27,7 @@ class Home extends React.Component {
           getJob={JobStore.getJob.bind(JobStore)} 
           jobSchema={JobStore.jobSchema} 
           setEditing={JobActions.setEditing.bind(JobActions)}
+          saveJob={JobStore.save.bind(JobStore)}
         />
       </AltContainer>
     )
