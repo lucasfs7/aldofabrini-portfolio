@@ -1,6 +1,6 @@
 import React from 'react'
 import Editor from 'medium-editor'
-import { merge, deburr, trim, kebabCase } from 'lodash'
+import { merge, union, deburr, trim, kebabCase } from 'lodash'
 
 class JobDetails extends React.Component {
   constructor(props) {
@@ -84,9 +84,9 @@ class JobDetails extends React.Component {
       extensions: ['.jpg', '.png', '.gif', '.bmp'],
       success: (files) => {
         if (files.length) {
-          let images = []
+          let images = this.state.images
           files.forEach((file) => {
-            images.push(file.link)
+            images.splice(0, 0, file.link)
           })
           this.setState({images: images})
         }
@@ -149,8 +149,7 @@ class JobDetails extends React.Component {
     
     message = <div className="hidden" />
     addImage = <div className="hidden" />
-    images = []
-    merge(images, this.state.images)
+    images = this.state.images
     btns = []
     job = this.getJob(this.props) || {}
     schema = this.props.jobSchema()
@@ -168,7 +167,7 @@ class JobDetails extends React.Component {
     if (job.description) description = job.description
     else description = schema.description
     
-    if (job.images && job.images.length) merge(images, job.images)
+    if (job.images && job.images.length) images = union(images, job.images)
 
     if (this.props.userProps.user.uid) {
       if (this.props.jobsProps.editing) {
