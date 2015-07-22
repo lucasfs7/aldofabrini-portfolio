@@ -53,15 +53,14 @@ class JobStore {
 
   handleUpdateJob(job) {
     this.loading = false
-    if (job) {
-      job.id = this.jobs.length
-      this.jobs.push(job)
-    }
+    if (job) this.jobs.push(job)
   }
 
   handleUpateJobs(jobs) {
     this.loading = false
-    jobs.forEach((job, i) => job.id = i+1)
+    if (this.jobs.length) {
+      jobs.forEach((job, i) => job.id = i+1)
+    }
     this.jobs = jobs
   }
 
@@ -76,8 +75,7 @@ class JobStore {
   }
   
   getJob(slug) {
-    var jobs = []
-    var job = {}
+    var jobs = [], job
     if (!slug) return null
     jobs = this.getState().jobs
     if (!jobs.length) return null

@@ -23,12 +23,12 @@ var JobSource = {
     return {
       remote(store, job) {
         return new Promise((resolve, reject) => {
+          if (!job.id) job.id = store.jobs.length
+          fbRef.child(`${job.id-1}`).update(job)
           if (job.isNew) {
             delete job.isNew
-            fbRef.push(job)
             resolve(job)
           } else {
-            fbRef.child(`${job.id-1}`).update(job)
             resolve()
           }
         })

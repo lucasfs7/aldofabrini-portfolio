@@ -38,9 +38,8 @@ class JobDetails extends React.Component {
   }
 
   getJob(props) {
-    var job;
+    var job = null;
     if (!this.isNew()) job = props.getJob(props.route)
-    if (!job) return {}
     return job
   }
 
@@ -56,13 +55,14 @@ class JobDetails extends React.Component {
 
   handleSave(e) {
     e.preventDefault()
-    var job = this.getJob(this.props)
+    var job = this.getJob(this.props) || this.props.jobSchema()
     job.name.long = React.findDOMNode(this.refs.jobTitle).innerHTML
     job.client.name = React.findDOMNode(this.refs.jobClient).innerHTML
     job.description = React.findDOMNode(this.refs.jobDescription).innerHTML
     job.slug = this.slugfy(job.name.long)
     if (this.isNew()) job.isNew = true
     this.props.saveJob(job)
+    this.stopEditing()
     window.location.hash = job.slug
   }
 
@@ -87,6 +87,7 @@ class JobDetails extends React.Component {
       this.editor.multLine.destroy()
       this.editor.multLine = null
     }
+    props.setEditing(false)
   }
 
   componentWillMount() {
@@ -120,7 +121,7 @@ class JobDetails extends React.Component {
     
     message = <div className="hidden" />
     btns = []
-    job = this.getJob(this.props)
+    job = this.getJob(this.props) || {}
     schema = this.props.jobSchema()
   
     if (this.props.jobsProps.errorMessage) {
