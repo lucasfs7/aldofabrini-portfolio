@@ -1,6 +1,24 @@
 import React from 'react'
+import Editor from 'medium-editor'
+import { merge } from 'lodash'
 
 class JobDetails extends React.Component {
+  constructor(props) {
+    super(props)
+    this.editor = {
+      options: {
+        disableDoubleReturn: true,
+        toolbar: {
+          buttons: ['underline', 'italic', 'bold', 'strikethrough', 'removeFormat']
+        }
+      },
+      singleLineOptions: { disableReturn: true },
+      multLineOptions: {}
+    }
+    merge(this.editor.multLineOptions, this.editor.options)
+    merge(this.editor.singleLineOptions, this.editor.options)
+  }
+
   isNew(nextProps) {
     var props = nextProps || this.props
     if (props.route === 'new') return true
@@ -41,13 +59,26 @@ class JobDetails extends React.Component {
   }
 
   startEditing(props) {
+    var title, client, description
     var props = props || this.props
     props.setEditing(true)
+    title = new React.findDOMNode(this.refs.jobTitle)
+    client = new React.findDOMNode(this.refs.jobClient)
+    description = React.findDOMNode(this.refs.jobDescription)
+    this.editor.singleLine = new Editor([title, client], this.editor.singleLineOptions)
+    this.editor.multLine = new Editor(description, this.editor.multLineOptions)
   }
 
   stopEditing(props) {
     var props = props || this.props
-    props.setEditing(false)
+    if (this.editor.singleLine) {
+      this.editor.singleLine.destroy()
+      this.editor.singleLine = null
+    }
+    if (this.editor.multLine) {
+      this.editor.multLine.destroy()
+      this.editor.multLine = null
+    }
   }
 
   componentWillMount() {
@@ -79,7 +110,7 @@ class JobDetails extends React.Component {
       return (<p>Loading</p>)
     }
     
-    message = ''
+    message = <div className="hidden" />
     btns = []
     job = this.getJob(this.props)
     schema = this.props.jobSchema()
@@ -114,10 +145,10 @@ class JobDetails extends React.Component {
         </ul>
         <div className="job-details">
           {message}
-          <h1 className="job-title">{name}</h1>
-          <h2 className="job-client">{client}</h2>
-          <div className="job-description" dangerouslySetInnerHTML={{__html: description}} />
-          <ul className="job-images">
+          <h1 className="job-title" ref="jobTitle">{name}</h1>
+          <h2 className="job-client" ref="jobClient">{client}</h2>
+          <div className="job-description" ref="jobDescription" dangerouslySetInnerHTML={{__html: description}} />
+          <ul className="job-images" ref="jobImages">
             {images.map((imgUrl, i) => {
               <li key={i}>
                 <img src={imgUrl} alt={`Image ${i}`} />
