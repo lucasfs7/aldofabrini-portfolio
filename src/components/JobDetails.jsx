@@ -64,6 +64,8 @@ class JobDetails extends React.Component {
     job.client.name = React.findDOMNode(this.refs.jobClient).innerHTML
     job.description = React.findDOMNode(this.refs.jobDescription).innerHTML
     job.slug = this.slugfy(job.name.long)
+    job.images = cloneDeep(this.state.images)
+    this.state.images = []
     if (this.isNew()) job.isNew = true
     this.props.saveJob(job)
     window.location.hash = job.slug
@@ -149,7 +151,8 @@ class JobDetails extends React.Component {
     
     message = <div className="hidden" />
     addImage = <div className="hidden" />
-    images = this.state.images
+    if (this.props.jobsProps.editing) images = this.state.images
+    else images = []
     btns = []
     job = this.getJob(this.props) || {}
     schema = this.props.jobSchema()
@@ -168,6 +171,7 @@ class JobDetails extends React.Component {
     else description = schema.description
     
     if (job.images && job.images.length) images = union(images, job.images)
+    if (this.props.jobsProps.editing) this.state.images = images
 
     if (this.props.userProps.user.uid) {
       if (this.props.jobsProps.editing) {
