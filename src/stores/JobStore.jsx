@@ -25,8 +25,9 @@ class JobStore {
     })
   }
   
-  handleSetEditing() {
-    this.editing = !this.editing
+  handleSetEditing(val) {
+    if (typeof(val) === 'boolean')
+      this.editing = val
   }
   
   jobSchema() {

@@ -13,8 +13,8 @@ class JobActions {
     this.dispatch(errorMessage);
   }
   
-  setEditing() {
-    this.dispatch()
+  setEditing(val) {
+    this.dispatch(val)
   }
 }
 
