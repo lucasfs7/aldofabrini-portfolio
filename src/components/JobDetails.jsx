@@ -66,6 +66,13 @@ class JobDetails extends React.Component {
     window.location.hash = job.slug
   }
 
+  handleRemove(e) {
+    e.preventDefault()
+    var job = this.getJob(this.props)
+    if (job && job.id) this.props.removeJob(job.id)
+    window.location.hash = ''
+  }
+
   startEditing(props) {
     var title, client, description
     var props = props || this.props
@@ -140,10 +147,15 @@ class JobDetails extends React.Component {
     if (job.images && job.images.length) images = job.images
     else images = schema.images
 
-    if (this.props.jobsProps.editing) {
-      btns.push(<button type="button" onClick={this.handleSave.bind(this)}><i className="fa fa-check" /></button>)
-    } else {
-      btns.push(<button type="button" onClick={this.handleStartEditing.bind(this)}><i className="fa fa-pencil" /></button>)
+    if (this.props.userProps.user.uid) {
+      if (this.props.jobsProps.editing) {
+        btns.push(<button type="button" onClick={this.handleSave.bind(this)}><i className="fa fa-check" /></button>)
+      } else {
+        btns.push(<button type="button" onClick={this.handleStartEditing.bind(this)}><i className="fa fa-pencil" /></button>)
+      }
+      if (!this.isNew()) {
+        btns.push(<button type="button" onClick={this.handleRemove.bind(this)}><i className="fa fa-trash" /></button>)
+      }
     }
     btns.push(<button type="button" onClick={this.handleClose.bind(this)}>x</button>)
   

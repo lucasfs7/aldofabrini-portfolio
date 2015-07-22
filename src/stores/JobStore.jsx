@@ -16,7 +16,9 @@ class JobStore {
       handleJobsFailed: JobActions.JOBS_FAILED,
       handleSetEditing: JobActions.SET_EDITING,
       handleSave: JobActions.SAVE,
-      handleUpdateJob: JobActions.UPDATE_JOB
+      handleUpdateJob: JobActions.UPDATE_JOB,
+      handleRemoveJob: JobActions.REMOVE_JOB,
+      handleRemovedJob: JobActions.JOB_REMOVED
     })
 
     this.exportAsync(JobSource)
@@ -29,6 +31,15 @@ class JobStore {
   
   handleSave() {
     this.loading = true
+  }
+  
+  handleRemoveJob() {
+    this.loading = true
+  }
+  
+  handleRemovedJob(jobs) {
+    this.loading = false
+    this.jobs = jobs
   }
   
   handleSetEditing(val) {

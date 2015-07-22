@@ -24,6 +24,14 @@ class JobActions {
   save(job) {
     this.dispatch()
   }
+
+  jobRemoved(jobs) {
+    this.dispatch(jobs)
+  }
+
+  removeJob(id) {
+    this.dispatch()
+  }
 }
 
 export default alt.createActions(JobActions)

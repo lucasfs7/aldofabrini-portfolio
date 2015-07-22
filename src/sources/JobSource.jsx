@@ -1,5 +1,6 @@
 import JobActions from '../actions/JobActions'
 import Firebase from 'firebase'
+import { cloneDeep } from 'lodash'
 const fbRef = new Firebase('https://aldo-fabrini-portfolio.firebaseio.com/jobs')
 
 var JobSource = {
@@ -36,6 +37,21 @@ var JobSource = {
       success: JobActions.updateJob,
       error: JobActions.jobsFailed,
       loading: JobActions.save
+    }
+  },
+  removeJob() { return {
+      remote(store, id) {
+        return new Promise((resolve, reject) => {
+          var jobs = cloneDeep(store.jobs)
+          jobs.splice((id - 1), 1)
+          if (jobs.length) jobs.forEach((job, i) => job.id = i+1)
+          fbRef.set(jobs)
+          resolve(jobs)
+        })
+      },
+      success: JobActions.jobRemoved,
+      error: JobActions.jobsFailed,
+      loading: JobActions.removeJob
     }
   }
 }
