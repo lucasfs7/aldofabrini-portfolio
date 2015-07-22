@@ -5,6 +5,9 @@ import { merge, deburr, trim, kebabCase } from 'lodash'
 class JobDetails extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      images: []
+    }
     this.editor = {
       options: {
         disableDoubleReturn: true,
@@ -73,6 +76,24 @@ class JobDetails extends React.Component {
     window.location.hash = ''
   }
 
+  handleAddImage(e) {
+    e.preventDefault()
+    Dropbox.choose({
+      linkType: 'direct',
+      multiselect: true,
+      extensions: ['.jpg', '.png', '.gif', '.bmp'],
+      success: (files) => {
+        if (files.length) {
+          let images = []
+          files.forEach((file) => {
+            images.push(file.link)
+          })
+          this.setState({images: images})
+        }
+      }
+    })
+  }
+
   startEditing(props) {
     var title, client, description
     var props = props || this.props
@@ -120,13 +141,16 @@ class JobDetails extends React.Component {
   }
 
   render() {
-    var job, schema, name, client, description, images, message, btns
+    var job, schema, name, client, description, message, images, btns, addImage
     
     if (this.props.jobsProps.loading) {
       return (<p>Loading</p>)
     }
     
     message = <div className="hidden" />
+    addImage = <div className="hidden" />
+    images = []
+    merge(images, this.state.images)
     btns = []
     job = this.getJob(this.props) || {}
     schema = this.props.jobSchema()
@@ -144,11 +168,11 @@ class JobDetails extends React.Component {
     if (job.description) description = job.description
     else description = schema.description
     
-    if (job.images && job.images.length) images = job.images
-    else images = schema.images
+    if (job.images && job.images.length) merge(images, job.images)
 
     if (this.props.userProps.user.uid) {
       if (this.props.jobsProps.editing) {
+        addImage = <button type="button" onClick={this.handleAddImage.bind(this)}><i className="fa fa-picture-o" /></button>
         btns.push(<button type="button" onClick={this.handleSave.bind(this)}><i className="fa fa-check" /></button>)
       } else {
         btns.push(<button type="button" onClick={this.handleStartEditing.bind(this)}><i className="fa fa-pencil" /></button>)
@@ -169,11 +193,14 @@ class JobDetails extends React.Component {
           <h1 className="job-title" ref="jobTitle">{name}</h1>
           <h2 className="job-client" ref="jobClient">{client}</h2>
           <div className="job-description" ref="jobDescription" dangerouslySetInnerHTML={{__html: description}} />
+          {addImage}
           <ul className="job-images" ref="jobImages">
             {images.map((imgUrl, i) => {
-              <li key={i}>
-                <img src={imgUrl} alt={`Image ${i}`} />
-              </li>
+              return (
+                <li key={i}>
+                  <img src={imgUrl} alt={`Image ${i}`} />
+                </li>
+              )
             })}
           </ul>
         </div>
