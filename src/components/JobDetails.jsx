@@ -2,6 +2,8 @@ import React from 'react'
 import Editor from 'medium-editor'
 import { cloneDeep, merge, union, deburr, trim, kebabCase } from 'lodash'
 
+const rmTags = /(<([^>]+)>)/ig
+
 class JobDetails extends React.Component {
   constructor(props) {
     super(props)
@@ -11,9 +13,7 @@ class JobDetails extends React.Component {
     this.editor = {
       options: {
         disableDoubleReturn: true,
-        toolbar: {
-          buttons: ['underline', 'italic', 'bold', 'strikethrough', 'removeFormat']
-        }
+        toolbar: false
       },
       singleLineOptions: { disableReturn: true },
       multLineOptions: {}
@@ -60,8 +60,8 @@ class JobDetails extends React.Component {
     e.preventDefault()
     this.stopEditing(this.props)
     var job = this.getJob(this.props) || this.props.jobSchema()
-    job.name.long = React.findDOMNode(this.refs.jobTitle).innerHTML
-    job.client.name = React.findDOMNode(this.refs.jobClient).innerHTML
+    job.name.long = React.findDOMNode(this.refs.jobTitle).innerHTML.replace(rmTags, '')
+    job.client.name = React.findDOMNode(this.refs.jobClient).innerHTML.replace(rmTags, '')
     job.description = React.findDOMNode(this.refs.jobDescription).innerHTML
     job.slug = this.slugfy(job.name.long)
     job.images = cloneDeep(this.state.images)
