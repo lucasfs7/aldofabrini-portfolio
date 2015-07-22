@@ -5,16 +5,24 @@ class JobActions {
     this.dispatch(jobs)
   }
 
+  updateJob(job) {
+    this.dispatch(job)
+  }
+
   fetchJobs() {
-    this.dispatch();
+    this.dispatch()
   }
 
   jobsFailed(errorMessage) {
-    this.dispatch(errorMessage);
+    this.dispatch(errorMessage)
   }
   
   setEditing(val) {
     this.dispatch(val)
+  }
+  
+  save(job) {
+    this.dispatch()
   }
 }
 

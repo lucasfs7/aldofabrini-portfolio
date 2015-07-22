@@ -14,7 +14,9 @@ class JobStore {
       handleUpateJobs: JobActions.UPDATE_JOBS,
       handleFetchJobs: JobActions.FETCH_JOBS,
       handleJobsFailed: JobActions.JOBS_FAILED,
-      handleSetEditing: JobActions.SET_EDITING
+      handleSetEditing: JobActions.SET_EDITING,
+      handleSave: JobActions.SAVE,
+      handleUpdateJob: JobActions.UPDATE_JOB
     })
 
     this.exportAsync(JobSource)
@@ -23,6 +25,10 @@ class JobStore {
       getJob: this.getJob,
       jobSchema: this.jobSchema
     })
+  }
+  
+  handleSave() {
+    this.loading = true
   }
   
   handleSetEditing(val) {
@@ -45,8 +51,17 @@ class JobStore {
     })
   }
 
+  handleUpdateJob(job) {
+    this.loading = false
+    if (job) {
+      job.id = this.jobs.length
+      this.jobs.push(job)
+    }
+  }
+
   handleUpateJobs(jobs) {
     this.loading = false
+    jobs.forEach((job, i) => job.id = i+1)
     this.jobs = jobs
   }
 
