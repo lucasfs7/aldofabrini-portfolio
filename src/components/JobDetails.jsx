@@ -1,6 +1,6 @@
 import React from 'react'
 import Editor from 'medium-editor'
-import { merge, union, deburr, trim, kebabCase } from 'lodash'
+import { cloneDeep, merge, union, deburr, trim, kebabCase } from 'lodash'
 
 class JobDetails extends React.Component {
   constructor(props) {
@@ -58,6 +58,7 @@ class JobDetails extends React.Component {
 
   handleSave(e) {
     e.preventDefault()
+    this.stopEditing(this.props)
     var job = this.getJob(this.props) || this.props.jobSchema()
     job.name.long = React.findDOMNode(this.refs.jobTitle).innerHTML
     job.client.name = React.findDOMNode(this.refs.jobClient).innerHTML
@@ -65,7 +66,6 @@ class JobDetails extends React.Component {
     job.slug = this.slugfy(job.name.long)
     if (this.isNew()) job.isNew = true
     this.props.saveJob(job)
-    this.stopEditing()
     window.location.hash = job.slug
   }
 
@@ -126,9 +126,9 @@ class JobDetails extends React.Component {
     if (this.isNew(this.props)) this.startEditing(this.props)
   }
 
-  componentWillUpdate(nextProps, prevProps) {
+  componentWillUpdate(nextProps) {
     this.verifyAccess(nextProps)
-    if (!this.isNew(prevProps) 
+    if (!this.isNew(this.props) 
       && !this.isNew(nextProps)) return
     if (!this.isNew(nextProps) 
       && nextProps.jobsProps.editing) return this.stopEditing(nextProps)
