@@ -1,0 +1,20 @@
+transition-props = left 0.3s ease-out
+.page
+  background #fff
+  width 100%
+  position absolute
+  top 0
+
+.page-leave
+  left 0
+
+.page-leave.page-leave-active
+  left 100%
+  transition transition-props
+
+.page-enter
+  left 100%
+
+.page-enter.page-enter-active
+  left 0
+  transition transition-props
