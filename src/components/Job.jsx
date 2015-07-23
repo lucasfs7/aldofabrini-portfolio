@@ -149,9 +149,9 @@ class Job extends React.Component {
   }
 
   render() {
-    var job, images, btns, addImage, thumb
+    var job, images, btns, addImage, thumbBtns
     
-    thumb = <div className="hidden" />
+    thumbBtns = <div className="hidden" />
     addImage = <div className="hidden" />
     btns = []
     
@@ -167,15 +167,12 @@ class Job extends React.Component {
     if (this.props.jobsProps.editing) {
       job.images = union(this.state.images, job.images)
       this.state.images = images
-      thumb = (
-        <div className="edit-thumb">
-          <JobThumb job={job} />
+      thumbBtns = (
           <div className="buttons">
             <button type="button"><i className="fa fa-picture-o" /></button>
             <button type="button"><i className="icon-square" /></button>
             <button type="button"><i className="icon-rectangle" /></button>
           </div>
-        </div>
       )
     }
 
@@ -197,7 +194,10 @@ class Job extends React.Component {
         <ul className="page-header-links">
           {btns.map((btn, i) => <li key={i}>{btn}</li>)}
         </ul>
-        {thumb}
+        <div className="edit-thumb">
+          <JobThumb job={job} />
+          {thumbBtns}
+        </div>
         <JobDetails job={job}>
           {addImage}
         </JobDetails>
