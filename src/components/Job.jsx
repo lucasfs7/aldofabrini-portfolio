@@ -188,7 +188,7 @@ class Job extends React.Component {
     btns.push(<button type="button" onClick={this.handleClose.bind(this)}>x</button>)
   
     return (
-      <div className="page-job-details">
+      <div className="page page-job-details">
         <ul className="page-header-links">
           {btns.map((btn, i) => <li key={i}>{btn}</li>)}
         </ul>

@@ -31,7 +31,7 @@ class Login extends React.Component {
     }
 
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <form className="page" onSubmit={this.handleSubmit.bind(this)}>
         {message}
         <input type="email" name="email" placeholder="E-mail" />
         <input type="password" name="password" placeholder="Senha" />
