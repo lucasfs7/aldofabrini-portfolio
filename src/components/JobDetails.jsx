@@ -1,4 +1,5 @@
 import React from 'react'
+import JobThumb from '../components/JobThumb'
 import Editor from 'medium-editor'
 import { cloneDeep, merge, union, deburr, trim, kebabCase } from 'lodash'
 
@@ -13,13 +14,17 @@ class JobDetails extends React.Component {
     this.editor = {
       options: {
         disableDoubleReturn: true,
-        toolbar: false
+        toolbar: false,
+        placeholder: {
+          text: 'Edit here...'
+        }
       },
       singleLineOptions: { disableReturn: true },
       multLineOptions: {}
     }
     merge(this.editor.multLineOptions, this.editor.options)
     merge(this.editor.singleLineOptions, this.editor.options)
+    this.schema = this.props.jobSchema()
   }
 
   isNew(nextProps) {
@@ -143,35 +148,35 @@ class JobDetails extends React.Component {
   }
 
   render() {
-    var job, schema, name, client, description, message, images, btns, addImage
+    var job, images, btns, addImage, thumb
     
-    if (this.props.jobsProps.loading) {
-      return (<p>Loading</p>)
-    }
-    
-    message = <div className="hidden" />
+    thumb = <div className="hidden" />
     addImage = <div className="hidden" />
-    if (this.props.jobsProps.editing) images = this.state.images
-    else images = []
     btns = []
-    job = this.getJob(this.props) || {}
-    schema = this.props.jobSchema()
-  
-    if (this.props.jobsProps.errorMessage) {
-      message = <p className="msg error">{this.props.jobsProps.errorMessage}</p>
+    
+    if (this.props.jobsProps.loading) return (<p>Loading</p>)
+    
+    if (this.isNew()) job = this.schema
+    else job = this.getJob(this.props)
+    
+    if (!job) return (<p className="msg error">Desculpe, mas não encontramos essa página.</p>)
+    
+    job = merge({}, this.schema, job)
+    
+    if (this.props.jobsProps.editing) {
+      job.images = union(this.state.images, job.images)
+      this.state.images = images
+      thumb = (
+        <div className="edit-thumb">
+          <JobThumb job={job} />
+          <div className="buttons">
+            <button type="button"><i className="fa fa-picture-o" /></button>
+            <button type="button"><i className="icon-square" /></button>
+            <button type="button"><i className="icon-rectangle" /></button>
+          </div>
+        </div>
+      )
     }
-
-    if (job.name && job.name.long) name = job.name.long
-    else name = schema.name.long
-    
-    if (job.client && job.client.name) client = job.client.name
-    else client = schema.client.name
-    
-    if (job.description) description = job.description
-    else description = schema.description
-    
-    if (job.images && job.images.length) images = union(images, job.images)
-    if (this.props.jobsProps.editing) this.state.images = images
 
     if (this.props.userProps.user.uid) {
       if (this.props.jobsProps.editing) {
@@ -191,14 +196,14 @@ class JobDetails extends React.Component {
         <ul className="page-header-links">
           {btns.map((btn, i) => <li key={i}>{btn}</li>)}
         </ul>
+        {thumb}
         <div className="job-details">
-          {message}
-          <h1 className="job-title" ref="jobTitle">{name}</h1>
-          <h2 className="job-client" ref="jobClient">{client}</h2>
-          <div className="job-description" ref="jobDescription" dangerouslySetInnerHTML={{__html: description}} />
+          <h1 className="job-title" ref="jobTitle">{job.name.long}</h1>
+          <h2 className="job-client" ref="jobClient">{job.client.name}</h2>
+          <div className="job-description" ref="jobDescription" dangerouslySetInnerHTML={{__html: job.description}} />
           {addImage}
           <ul className="job-images" ref="jobImages">
-            {images.map((imgUrl, i) => {
+            {job.images.map((imgUrl, i) => {
               return (
                 <li key={i}>
                   <img src={imgUrl} alt={`Image ${i}`} />
