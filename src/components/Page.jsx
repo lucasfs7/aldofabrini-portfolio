@@ -39,7 +39,7 @@ class Page extends React.Component {
     }
   
     return (
-      <ReactCSSTransitionGroup transitionName="page" component="div">
+      <ReactCSSTransitionGroup transitionName="page" className="page-container" component="div">
         {page}
       </ReactCSSTransitionGroup>
     )

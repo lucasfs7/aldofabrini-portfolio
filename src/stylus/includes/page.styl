@@ -1,4 +1,8 @@
-transition-props = left 0.3s ease-out
+transition-props = right 0.3s ease-out
+
+.page-container
+  overflow hidden
+
 .page
   background #fff
   width 100%
@@ -6,15 +10,15 @@ transition-props = left 0.3s ease-out
   top 0
 
 .page-leave
-  left 0
+  right 0
 
 .page-leave.page-leave-active
-  left 100%
+  right 100%
   transition transition-props
 
 .page-enter
-  left 100%
+  right 100%
 
 .page-enter.page-enter-active
-  left 0
+  right 0
   transition transition-props
