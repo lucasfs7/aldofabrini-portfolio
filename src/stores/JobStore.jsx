@@ -50,14 +50,14 @@ class JobStore {
   jobSchema() {
     return ({
       name: {
-        short: 'Short title',
-        long: 'Job title'
+        short: '',
+        long: ''
       },
       client: {
-        short_name: 'Client',
-        name: 'Client name'
+        short_name: '',
+        name: ''
       },
-      description: 'Job descrption goes here',
+      description: '',
       images: [],
       thumb: {
         size: 'square'
