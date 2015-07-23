@@ -19,6 +19,7 @@
     "gulp-jade": "^1.0.1",
     "gulp-stylus": "^2.0.5",
     "gulp-util": "^3.0.6",
+    "kouto-swiss": "^0.11.13",
     "lodash": "^3.10.0",
     "medium-editor": "^5.5.0",
     "pm2": "^0.14.3",

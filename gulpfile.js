@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var util = require('gulp-util');
 var jade = require('gulp-jade');
 var stylus = require('gulp-stylus');
+var ks = require('kouto-swiss');
 var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
@@ -51,7 +52,9 @@ gulp.task('compile:html', function() {
 
 gulp.task('compile:css', function () {
   gulp.src(path.stylus)
-    .pipe(stylus())
+    .pipe(stylus({
+      use: [ks()]
+    }))
     .pipe(gulp.dest(path.dest.css));
 });
 
