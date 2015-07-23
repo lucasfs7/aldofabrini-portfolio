@@ -5,7 +5,7 @@ import { cloneDeep, merge, union, deburr, trim, kebabCase } from 'lodash'
 
 const rmTags = /(<([^>]+)>)/ig
 
-class JobDetails extends React.Component {
+class Job extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -221,4 +221,4 @@ class JobDetails extends React.Component {
   }
 }
 
-export default JobDetails
+export default Job

@@ -1,7 +1,7 @@
 import React from 'react'
 import About from '../components/About'
 import Login from '../components/Login'
-import JobDetails from '../components/JobDetails'
+import Job from '../components/Job'
 
 class Page extends React.Component {
   constructor() {
@@ -27,7 +27,7 @@ class Page extends React.Component {
       switch (this.state.currentPage) {
         case 'about': Child = About; break;
         case 'login': Child = Login; break;
-        default:      Child = JobDetails;
+        default:      Child = Job;
       }
 
       return (
