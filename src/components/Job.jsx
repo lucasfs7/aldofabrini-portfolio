@@ -1,5 +1,6 @@
 import React from 'react'
 import JobThumb from '../components/JobThumb'
+import JobDetails from '../components/JobDetails'
 import Editor from 'medium-editor'
 import { cloneDeep, merge, union, deburr, trim, kebabCase } from 'lodash'
 
@@ -197,21 +198,9 @@ class Job extends React.Component {
           {btns.map((btn, i) => <li key={i}>{btn}</li>)}
         </ul>
         {thumb}
-        <div className="job-details">
-          <h1 className="job-title" ref="jobTitle">{job.name.long}</h1>
-          <h2 className="job-client" ref="jobClient">{job.client.name}</h2>
-          <div className="job-description" ref="jobDescription" dangerouslySetInnerHTML={{__html: job.description}} />
+        <JobDetails job={job}>
           {addImage}
-          <ul className="job-images" ref="jobImages">
-            {job.images.map((imgUrl, i) => {
-              return (
-                <li key={i}>
-                  <img src={imgUrl} alt={`Image ${i}`} />
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+        </JobDetails>
       </div>
     )
   }
