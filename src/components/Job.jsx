@@ -105,8 +105,8 @@ class Job extends React.Component {
   startEditing(props) {
     var singleElms, multElms, props = props || this.props
     props.setEditing(true)
-    singleElms = document.querySelector('.page-job-details .edit-single')
-    multElms = document.querySelector('.page-job-details .edit-mult')
+    singleElms = document.querySelectorAll('.page-job-details .edit-single')
+    multElms = document.querySelectorAll('.page-job-details .edit-mult')
     this.editor.singleLine = new Editor(singleElms, this.editor.singleLineOptions)
     this.editor.multLine = new Editor(multElms, this.editor.multLineOptions)
   }
