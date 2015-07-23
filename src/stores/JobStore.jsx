@@ -58,7 +58,10 @@ class JobStore {
         name: 'Client name'
       },
       description: 'Job descrption goes here',
-      images: []
+      images: [],
+      thumb: {
+        size: 'square'
+      }
     })
   }
 
