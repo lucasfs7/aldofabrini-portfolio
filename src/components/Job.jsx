@@ -204,7 +204,7 @@ class Job extends React.Component {
   }
 
   slugfy(str) {
-    return kebabCase(trim(deburr(str.toLowerCase().replace(/(<([^>]+)>)/ig, ' '))))
+    return kebabCase(trim(deburr(str.toLowerCase().replace(rmTags, ' '))))
   }
 }
 
