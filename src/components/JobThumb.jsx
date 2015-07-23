@@ -4,9 +4,12 @@ class JobThumb extends React.Component {
   render() {
     var job, image
     job = this.props.job
-    
-    if (job.thumb.image) image = <img className="job-thumb-image" src={job.thumb.image} alt={job.name.long} ref="jobThumbImage" />
-    else image = <div className="hidden" />
+    image = <div className="hidden" />
+
+    if (job.thumb.image) {
+      image = <img className="job-thumb-image" src={job.thumb.image} alt={job.name.long} ref="jobThumbImage" />
+    }
+
     return(
       <figure className="job-thumb">
         {image}
