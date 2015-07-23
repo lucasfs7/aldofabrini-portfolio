@@ -14,8 +14,8 @@ class JobThumb extends React.Component {
       <figure className="job-thumb">
         {image}
         <figcaption className="job-thumb-description">
-          <span className="job-thumb-name" ref="jobShortName">{job.name.short}</span>
-          <span className="job-thumb-client" ref="jobClientShortName">{job.client.short_name}</span>
+          <span className="job-thumb-name edit-single" ref="jobShortName">{job.name.short}</span>
+          <span className="job-thumb-client edit-single" ref="jobClientShortName">{job.client.short_name}</span>
         </figcaption>
       </figure>
     )

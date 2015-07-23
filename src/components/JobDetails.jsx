@@ -8,9 +8,9 @@ class JobDetails extends React.Component {
 
     return (
       <div className="job-details">
-        <h1 className="job-title" ref="jobTitle">{job.name.long}</h1>
-        <h2 className="job-client" ref="jobClient">{job.client.name}</h2>
-        <div className="job-description" ref="jobDescription" dangerouslySetInnerHTML={{__html: job.description}} />
+        <h1 className="job-title edit-single" ref="jobTitle">{job.name.long}</h1>
+        <h2 className="job-client edit-single" ref="jobClient">{job.client.name}</h2>
+        <div className="job-description edit-mult" ref="jobDescription" dangerouslySetInnerHTML={{__html: job.description}} />
         {children}
         <ul className="job-images" ref="jobImages">
           {job.images.map((imgUrl, i) => {

@@ -103,14 +103,12 @@ class Job extends React.Component {
   }
 
   startEditing(props) {
-    var title, client, description
-    var props = props || this.props
+    var singleElms, multElms, props = props || this.props
     props.setEditing(true)
-    title = React.findDOMNode(this.refs.jobTitle)
-    client = React.findDOMNode(this.refs.jobClient)
-    description = React.findDOMNode(this.refs.jobDescription)
-    this.editor.singleLine = new Editor([title, client], this.editor.singleLineOptions)
-    this.editor.multLine = new Editor(description, this.editor.multLineOptions)
+    singleElms = document.querySelector('.page-job-details .edit-single')
+    multElms = document.querySelector('.page-job-details .edit-mult')
+    this.editor.singleLine = new Editor(singleElms, this.editor.singleLineOptions)
+    this.editor.multLine = new Editor(multElms, this.editor.multLineOptions)
   }
 
   stopEditing(props) {
@@ -190,7 +188,7 @@ class Job extends React.Component {
     btns.push(<button type="button" onClick={this.handleClose.bind(this)}>x</button>)
   
     return (
-      <div>
+      <div className="page-job-details">
         <ul className="page-header-links">
           {btns.map((btn, i) => <li key={i}>{btn}</li>)}
         </ul>
