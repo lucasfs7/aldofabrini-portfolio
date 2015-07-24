@@ -20,22 +20,21 @@ class Login extends React.Component {
     var userProps = this.props.userProps
     var message = ''
   
-    console.log(userProps.user)
     if (userProps.user.uid) {
       window.location.hash = ''
       return (<div className="hidden"></div>)
+    }
+
+    if (userProps.errorMessage) {
+      message = <p className="msg error">{userProps.errorMessage}</p>
     }
   
     if (userProps.loading) {
       message = (<p className="msg">authenticating</p>)
     }
 
-    if (userProps.errorMessage) {
-      message = <p className="msg error">{userProps.errorMessage}</p>
-    }
-
     return (
-      <form className="page page-login" onSubmit={this.handleSubmit.bind(this)}>
+      <div className="page page-login">
         <ul className="btns-list">
           <li>
             <button className="btn" onClick={this.handleClose.bind(this)}>
@@ -43,11 +42,13 @@ class Login extends React.Component {
             </button>
           </li>
         </ul>
-        {message}
-        <input type="email" name="email" placeholder="E-mail" />
-        <input type="password" name="password" placeholder="Senha" />
-        <button type="submit" className="btn">Entrar</button>
-      </form>
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          {message}
+          <input type="email" name="email" placeholder="E-mail" />
+          <input type="password" name="password" placeholder="Senha" />
+          <button type="submit" className="btn">Entrar</button>
+        </form>
+      </div>
     )
   }
 }
