@@ -5,12 +5,15 @@ import Jobs from '../components/Jobs'
 import Page from '../components/Page'
 import UserStore from '../stores/UserStore'
 import JobStore from '../stores/JobStore'
+import AboutStore from '../stores/AboutStore'
 import JobActions from '../actions/JobActions'
+import AboutActions from '../actions/AboutActions'
 
 class Home extends React.Component {
   componentDidMount() {
     UserStore.auth()
     JobStore.fetchJobs()
+    AboutStore.fetchData()
   }
 
   render() {
@@ -18,7 +21,8 @@ class Home extends React.Component {
       <AltContainer 
         stores={{
           userProps: UserStore,
-          jobsProps: JobStore
+          jobsProps: JobStore,
+          about: AboutStore
         }}>
         <Header signOut={UserStore.signOut} />
         <Jobs />
@@ -29,6 +33,7 @@ class Home extends React.Component {
           setEditing={JobActions.setEditing.bind(JobActions)}
           saveJob={JobStore.save.bind(JobStore)}
           removeJob={JobStore.removeJob.bind(JobStore)}
+          setEditingAbout={AboutActions.setEditing.bind(AboutActions)}
         />
       </AltContainer>
     )
