@@ -40,14 +40,14 @@ class About extends React.Component {
   handleAddImage(e) {
     e.preventDefault()
     Dropbox.choose({
-      linkType: 'direct',
+      linkType: 'preview',
       multiselect: true,
       extensions: ['.jpg', '.png', '.gif', '.bmp'],
       success: (files) => {
         if (files.length) {
           let images = this.state.images
           files.forEach((file) => {
-            images.splice(0, 0, file.link)
+            images.splice(0, 0, file.link.replace('dl=0', 'dl=1'))
           })
           this.setState({images: images})
         }
