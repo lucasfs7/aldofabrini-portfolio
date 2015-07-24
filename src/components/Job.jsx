@@ -182,10 +182,11 @@ class Job extends React.Component {
       job.images = union(this.state.images, job.images)
       this.state.images = job.images
       thumbBtns = (
-          <div className="buttons">
-            <button type="button"><i className="fa fa-picture-o" /></button>
-            <button type="button"><i className="icon-square" /></button>
-            <button type="button"><i className="icon-rectangle" /></button>
+          <div className="btns-list">
+            <li><button className="btn"><i className="fa fa-picture-o" /></button></li>
+            <li><button className="btn"><i className="icon-square" /></button></li>
+            <li><button className="btn"><i className="icon-rectangle" /></button></li>
+            <li><button className="btn"><i className="fa fa-arrow-up" /></button></li>
           </div>
       )
     }

@@ -1,0 +1,68 @@
+base-width = 435px
+
+.job-thumb
+  background red
+  size 100%
+  margin 0
+  padding 0
+  display table
+
+  &.square
+    max-width base-width
+    max-height base-width
+  &.rectangle
+    max-width base-width
+    max-height (base-width * 2)
+
+  .job-thumb-image
+    max-width 100%
+    display block
+
+  .job-thumb-description
+    background rgba(0, 0, 0, 0.6)
+    size 100%
+    display table-cell
+    vertical-align middle
+    color #fff
+
+    .job-thumb-name,
+    .job-thumb-client
+      max-width 350px
+      margin 0 auto
+      display block
+
+    .job-thumb-name
+      min-height 55px
+      font-size 55px
+
+    .job-thumb-client
+      min-height 24px
+      font-size 24px
+
+.edit-thumb
+  width base-width
+  absolute 0 45px
+  
+  .btns-list
+    static false
+    text-align left
+
+    li
+      margin 0
+
+      &:last-child
+        float right
+
+    i
+      display inline-block
+
+    .btn
+      width 40px
+
+    .icon-square
+      size 12px
+      border 1px solid #fff
+
+    .icon-rectangle
+      size 6px 12px
+      border 1px solid #fff

@@ -11,7 +11,7 @@ class JobThumb extends React.Component {
     }
 
     return(
-      <figure className="job-thumb">
+      <figure className={`job-thumb ${job.thumb.size}`}>
         {image}
         <figcaption className="job-thumb-description">
           <span className="job-thumb-name edit-single" ref="jobShortName">{job.name.short}</span>
