@@ -133,7 +133,9 @@ class Job extends React.Component {
 
   collapseThumb(e) {
     e.preventDefault()
-    this.setState({thumb: {collapsed: !this.state.thumb.collapsed}})
+    var thumb = this.state.thumb
+    thumb.collapsed = !thumb.collapsed
+    this.setState({thumb: thumb})
   }
 
   startEditing(props) {
