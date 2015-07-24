@@ -5,7 +5,15 @@
 
   li
     width 100%
+    margin-bottom -3px
     display inline-block
+    font-size 0
     
   a
     display block
+
+  +media-query(all, max-width 735px)
+    column-count 2
+
+  +media-query(all, max-width 435px)
+    column-count 1
