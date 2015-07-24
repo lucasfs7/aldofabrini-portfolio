@@ -10,7 +10,10 @@ class Job extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      images: []
+      images: [],
+      thumb: {
+        collapsed: false
+      }
     }
     this.editor = {
       options: {
@@ -118,6 +121,21 @@ class Job extends React.Component {
     }
   }
 
+  setThumbSquare(e) {
+    e.preventDefault()
+    this.setState({thumb: {size: 'square'}})
+  }
+
+  setThumbRectangle(e) {
+    e.preventDefault()
+    this.setState({thumb: {size: 'rectangle'}})
+  }
+
+  collapseThumb(e) {
+    e.preventDefault()
+    this.setState({thumb: {collapsed: !this.state.thumb.collapsed}})
+  }
+
   startEditing(props) {
     var singleElms, multElms, props = props || this.props
     props.setEditing(true)
@@ -163,7 +181,7 @@ class Job extends React.Component {
   }
 
   render() {
-    var job, btns, addImage, thumbBtns
+    var job, btns, addImage, thumbBtns, collapseThumbClassName, collapseThumbContainerClassName
     
     thumbBtns = <div className="hidden" />
     addImage = <div className="hidden" />
@@ -181,15 +199,35 @@ class Job extends React.Component {
     if (this.props.jobsProps.editing) {
       job.images = union(this.state.images, job.images)
       this.state.images = job.images
+      if (this.state.thumb.size) job.thumb.size = this.state.thumb.size
+      collapseThumbClassName = `fa fa-arrow-${(this.state.thumb.collapsed ? 'down' : 'up')}`
       thumbBtns = (
           <div className="btns-list">
-            <li><button className="btn"><i className="fa fa-picture-o" /></button></li>
-            <li><button className="btn"><i className="icon-square" /></button></li>
-            <li><button className="btn"><i className="icon-rectangle" /></button></li>
-            <li><button className="btn"><i className="fa fa-arrow-up" /></button></li>
+            <li>
+              <button className="btn">
+                <i className="fa fa-picture-o" />
+              </button>
+            </li>
+            <li>
+              <button className="btn" onClick={this.setThumbSquare.bind(this)}>
+                <i className="icon-square" />
+              </button>
+            </li>
+            <li>
+              <button className="btn" onClick={this.setThumbRectangle.bind(this)}>
+                <i className="icon-rectangle" />
+              </button>
+            </li>
+            <li>
+              <button className="btn" onClick={this.collapseThumb.bind(this)}>
+                <i className={collapseThumbClassName} />
+              </button>
+            </li>
           </div>
       )
     }
+    
+    collapseThumbContainerClassName = `edit-thumb${(this.state.thumb.collapsed ? ` collapsed-${job.thumb.size}` : '')}`
 
     if (this.props.userProps.user.uid) {
       if (this.props.jobsProps.editing) {
@@ -209,7 +247,7 @@ class Job extends React.Component {
         <ul className="btns-list">
           {btns.map((btn, i) => <li key={i}>{btn}</li>)}
         </ul>
-        <div className="edit-thumb">
+        <div className={collapseThumbContainerClassName}>
           <JobThumb job={job} />
           {thumbBtns}
         </div>

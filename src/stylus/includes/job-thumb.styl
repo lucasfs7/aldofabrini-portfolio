@@ -41,6 +41,13 @@ base-width = 435px
 .edit-thumb
   width base-width
   absolute 0 45px
+  z-index 1
+  transition top 0.3s ease-out
+  
+  &.collapsed-square
+    top -(base-width)
+  &.collapsed-rectangle
+    top -(base-width * 2)
   
   .btns-list
     static false
