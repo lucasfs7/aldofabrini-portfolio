@@ -11,12 +11,12 @@ class Jobs extends React.Component {
 
     if (jobsProps.loading) {
       return (
-        <p>loading</p>
+        <p className="msg">loading</p>
       )
     }
 
     return (
-      <ul>
+      <ul className="jobs-list">
         {jobsProps.jobs.map((job, i) => {
           return (
             <li key={i}>
