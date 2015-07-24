@@ -22,7 +22,8 @@ class Page extends React.Component {
   }
 
   render() {
-    var page
+    var page, jobsList
+    jobsList = document.querySelector('.jobs-list')
 
     if (this.state.currentPage) {
       let Child
@@ -32,8 +33,10 @@ class Page extends React.Component {
         default:      Child = Job;
       }
       page = (<Child {...this.props} route={this.state.currentPage} />)
+      if (jobsList) jobsList.classList.add('hidden')
     } else {
       page = (<div className="hidden"></div>)
+      if (jobsList) jobsList.classList.remove('hidden')
     }
   
     return (
