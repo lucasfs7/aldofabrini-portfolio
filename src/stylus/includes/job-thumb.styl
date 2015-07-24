@@ -22,6 +22,11 @@ base-width = 435px
     size 100%
     absolute 0
     color #fff
+    opacity 0
+    transition opacity 0.3s ease-out
+    
+    &:hover
+      opacity 1
     
     .align-table
       size 100%
@@ -48,7 +53,7 @@ base-width = 435px
 .edit-thumb
   width base-width
   absolute 0 45px
-  z-index 1
+  z-index 2
   transition top 0.3s ease-out
   
   &.collapsed-square
@@ -79,3 +84,6 @@ base-width = 435px
     .icon-rectangle
       size 6px 12px
       border 1px solid #fff
+
+  .job-thumb-description
+    opacity 1
