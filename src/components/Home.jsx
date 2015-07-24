@@ -34,6 +34,7 @@ class Home extends React.Component {
           saveJob={JobStore.save.bind(JobStore)}
           removeJob={JobStore.removeJob.bind(JobStore)}
           setEditingAbout={AboutActions.setEditing.bind(AboutActions)}
+          saveAbout={AboutStore.save.bind(AboutStore)}
         />
       </AltContainer>
     )
