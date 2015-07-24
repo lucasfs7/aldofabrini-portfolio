@@ -1,6 +1,11 @@
 import React from 'react'
 
 class Login extends React.Component {
+  handleClose(e) {
+    e.preventDefault()
+    window.location.hash = ''
+  }
+
   handleSubmit(e) {
     e.preventDefault()
     let form = e.target
@@ -22,7 +27,7 @@ class Login extends React.Component {
   
     if (userProps.loading) {
       return (
-        <p>authenticating</p>
+        <p className="msg">authenticating</p>
       )
     }
 
@@ -31,11 +36,18 @@ class Login extends React.Component {
     }
 
     return (
-      <form className="page" onSubmit={this.handleSubmit.bind(this)}>
+      <form className="page page-login" onSubmit={this.handleSubmit.bind(this)}>
+        <ul className="btns-list">
+          <li>
+            <button className="btn" onClick={this.handleClose.bind(this)}>
+              <i className="fa fa-times" />
+            </button>
+          </li>
+        </ul>
         {message}
         <input type="email" name="email" placeholder="E-mail" />
         <input type="password" name="password" placeholder="Senha" />
-        <button type="submit">Entrar</button>
+        <button type="submit" className="btn">Entrar</button>
       </form>
     )
   }
