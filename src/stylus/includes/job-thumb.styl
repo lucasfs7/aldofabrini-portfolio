@@ -4,7 +4,7 @@ base-width = 435px
   size 100%
   margin 0
   padding 0
-  display table
+  relative false
 
   &.square
     max-width base-width
@@ -14,15 +14,22 @@ base-width = 435px
     max-height (base-width * 2)
 
   .job-thumb-image
-    max-width 100%
+    max-width base-width
     display block
 
   .job-thumb-description
     background rgba(0, 0, 0, 0.6)
     size 100%
-    display table-cell
-    vertical-align middle
+    absolute 0
     color #fff
+    
+    .align-table
+      size 100%
+      display table
+    .align-table-cell
+      size 100%
+      display table-cell
+      vertical-align middle
 
     .job-thumb-name,
     .job-thumb-client

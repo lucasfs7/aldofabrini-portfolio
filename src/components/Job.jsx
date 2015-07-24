@@ -123,12 +123,32 @@ class Job extends React.Component {
 
   setThumbSquare(e) {
     e.preventDefault()
-    this.setState({thumb: {size: 'square'}})
+    var thumb = this.state.thumb
+    thumb.size = 'square'
+    this.setState({thumb: thumb})
   }
 
   setThumbRectangle(e) {
     e.preventDefault()
-    this.setState({thumb: {size: 'rectangle'}})
+    var thumb = this.state.thumb
+    thumb.size = 'rectangle'
+    this.setState({thumb: thumb})
+  }
+
+  addThumbImage(e) {
+    e.preventDefault()
+    Dropbox.choose({
+      linkType: 'direct',
+      multiselect: false,
+      extensions: ['.jpg', '.png', '.gif', '.bmp'],
+      success: (files) => {
+        if (files.length) {
+          let thumb = this.state.thumb
+          thumb.image = files[0].link
+          this.setState({thumb: thumb})
+        }
+      }
+    })
   }
 
   collapseThumb(e) {
@@ -202,11 +222,12 @@ class Job extends React.Component {
       job.images = union(this.state.images, job.images)
       this.state.images = job.images
       if (this.state.thumb.size) job.thumb.size = this.state.thumb.size
+      if (this.state.thumb.image) job.thumb.image = this.state.thumb.image
       collapseThumbClassName = `fa fa-arrow-${(this.state.thumb.collapsed ? 'down' : 'up')}`
       thumbBtns = (
           <div className="btns-list">
             <li>
-              <button className="btn">
+              <button className="btn" onClick={this.addThumbImage.bind(this)}>
                 <i className="fa fa-picture-o" />
               </button>
             </li>
