@@ -208,13 +208,13 @@ class Job extends React.Component {
     if (this.isNew(nextProps) 
       && !nextProps.jobsProps.editing) return this.startEditing(nextProps)
   }
-  
+
   componentWillUnmount() {
     this.stopEditing()
   }
 
   render() {
-    var job, btns, addImage, thumb, thumbBtns, collapseThumbClassName, collapseThumbContainerClassName
+    var job, btns, addImage, thumbBtns, collapseThumbClassName, collapseThumbContainerClassName
     
     thumbBtns = <div className="hidden" />
     addImage = <div className="hidden" />
@@ -260,14 +260,9 @@ class Job extends React.Component {
             </li>
           </div>
       )
-      collapseThumbContainerClassName = `edit-thumb${(this.state.thumb.collapsed ? ` collapsed-${job.thumb.size}` : '')}`
-      thumb = (
-        <div className={collapseThumbContainerClassName}>
-          <JobThumb job={job} />
-          {thumbBtns}
-        </div>
-      )
     }
+
+    collapseThumbContainerClassName = `edit-thumb${(this.state.thumb.collapsed ? ` collapsed-${job.thumb.size}` : '')}${(!this.props.jobsProps.editing ? ' hidden' : '')}`
 
     if (this.props.userProps.user.uid) {
       if (this.props.jobsProps.editing) {
@@ -287,7 +282,10 @@ class Job extends React.Component {
         <ul className="btns-list">
           {btns.map((btn, i) => <li key={i}>{btn}</li>)}
         </ul>
-        {thumb}
+        <div className={collapseThumbContainerClassName}>
+          <JobThumb job={job} />
+          {thumbBtns}
+        </div>
         <JobDetails job={job} editing={this.props.jobsProps.editing} handleRemoveImage={this.handleRemoveImage.bind(this)}>
           {addImage}
         </JobDetails>
