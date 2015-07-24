@@ -13,7 +13,9 @@ class About extends React.Component {
     this.editor = {
       options: {
         disableDoubleReturn: true,
-        toolbar: false,
+        toolbar: {
+          buttons: ['anchor']
+        },
         placeholder: {
           text: 'Edit here...'
         }
