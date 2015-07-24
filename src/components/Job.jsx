@@ -101,6 +101,22 @@ class Job extends React.Component {
       }
     })
   }
+  
+  handleRemoveImage(e) {
+    e.preventDefault()
+    e.stopPropagation()
+    var t, img, container, url, images, imgIndex
+    container = t = e.target
+    while (container.nodeName.toLowerCase() !== 'li') container = t.parentNode
+    img = container.getElementsByTagName('img')
+    if (img.length) {
+      url = img[0].src
+      images = this.state.images
+      imgIndex = images.indexOf(url)
+      images.splice(imgIndex, 1)
+      if (imgIndex !== -1) this.setState({images: images})
+    }
+  }
 
   startEditing(props) {
     var singleElms, multElms, props = props || this.props
@@ -196,7 +212,7 @@ class Job extends React.Component {
           <JobThumb job={job} />
           {thumbBtns}
         </div>
-        <JobDetails job={job}>
+        <JobDetails job={job} editing={this.props.jobsProps.editing} handleRemoveImage={this.handleRemoveImage.bind(this)}>
           {addImage}
         </JobDetails>
       </div>

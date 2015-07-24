@@ -2,9 +2,10 @@ import React from 'react'
 
 class JobDetails extends React.Component {
   render() {
-    var job, children
+    var job, children, rmImageBtn
     job = this.props.job
     children = this.props.children
+    if (this.props.editing) rmImageBtn = <button className="btn btn-remove-image" onClick={this.props.handleRemoveImage}><i className="fa fa-trash" /></button>
 
     return (
       <div className="job-details">
@@ -16,6 +17,7 @@ class JobDetails extends React.Component {
           {job.images.map((imgUrl, i) => {
             return (
               <li key={i}>
+                {rmImageBtn}
                 <img src={imgUrl} alt={`Image ${i}`} />
               </li>
             )
