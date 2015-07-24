@@ -155,7 +155,7 @@ class Job extends React.Component {
       success: (files) => {
         if (files.length) {
           let thumb = this.state.thumb
-          thumb.image = files[0].lin.replace('dl=0', 'dl=1')
+          thumb.image = files[0].link.replace('dl=0', 'dl=1')
           this.setState({thumb: thumb})
         }
       }
