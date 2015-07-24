@@ -5,6 +5,12 @@ base-width = 435px
   margin 0
   padding 0
   relative false
+  -webkit-column-break-inside:avoid;
+  -moz-column-break-inside:avoid;
+  -o-column-break-inside:avoid;
+  -ms-column-break-inside:avoid;
+  column-break-inside:avoid;
+  -webkit-backface-visibility:hidden;
 
   &.square
     max-width base-width
@@ -12,6 +18,9 @@ base-width = 435px
   &.rectangle
     max-width base-width
     max-height (base-width * 2)
+    
+  &:hover .job-thumb-description
+    opacity 1
 
   .job-thumb-image
     max-width base-width
@@ -26,9 +35,6 @@ base-width = 435px
     color #fff
     opacity 0
     transition opacity 0.3s ease-out
-    
-    &:hover
-      opacity 1
     
     .align-table
       size 100%
@@ -86,6 +92,3 @@ base-width = 435px
     .icon-rectangle
       size 6px 12px
       border 1px solid #fff
-
-  .job-thumb-description
-    opacity 1
