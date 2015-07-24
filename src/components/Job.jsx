@@ -69,12 +69,23 @@ class Job extends React.Component {
     e.preventDefault()
     this.stopEditing(this.props)
     var job = this.getJob(this.props) || this.props.jobSchema()
-    job.name.long = React.findDOMNode(this.refs.jobTitle).innerHTML.replace(rmTags, '')
-    job.client.name = React.findDOMNode(this.refs.jobClient).innerHTML.replace(rmTags, '')
-    job.description = React.findDOMNode(this.refs.jobDescription).innerHTML
+    job.name.long = document.querySelector('.page-job-details .job-title').innerHTML.replace(rmTags, '')
+    job.name.short = document.querySelector('.page-job-details .job-thumb-name').innerHTML.replace(rmTags, '')
+    job.client.name = document.querySelector('.page-job-details .job-client').innerHTML.replace(rmTags, '')
+    job.client.short_name = document.querySelector('.page-job-details .job-thumb-client').innerHTML.replace(rmTags, '')
+    job.description = document.querySelector('.page-job-details .job-description').innerHTML
     job.slug = this.slugfy(job.name.long)
     job.images = cloneDeep(this.state.images)
+    let thumbImageEl = document.querySelector('.page-job-details .job-thumb-image')
+    if (thumbImageEl) job.thumb.image = thumbImageEl.src
+    job.thumb.size = this.state.thumb.size
     this.state.images = []
+    if (!job.name.long 
+      || !job.name.short 
+      || !job.client.name 
+      || !job.client.short_name 
+      || !job.description 
+      || !job.thumb.size) return alert('Todos os campos de texto são obrigatórios')
     if (this.isNew()) job.isNew = true
     this.props.saveJob(job)
     window.location.hash = job.slug
@@ -203,8 +214,7 @@ class Job extends React.Component {
   }
 
   render() {
-    var job, btns, addImage, thumbBtns, collapseThumbClassName, collapseThumbContainerClassName
-    console.log(this.refs)
+    var job, btns, addImage, thumb, thumbBtns, collapseThumbClassName, collapseThumbContainerClassName
     
     thumbBtns = <div className="hidden" />
     addImage = <div className="hidden" />
@@ -222,7 +232,8 @@ class Job extends React.Component {
     if (this.props.jobsProps.editing) {
       job.images = union(this.state.images, job.images)
       this.state.images = job.images
-      if (this.state.thumb.size) job.thumb.size = this.state.thumb.size
+      if (!this.state.thumb.size) this.state.thumb.size = job.thumb.size
+      job.thumb.size = this.state.thumb.size
       if (this.state.thumb.image) job.thumb.image = this.state.thumb.image
       collapseThumbClassName = `fa fa-arrow-${(this.state.thumb.collapsed ? 'down' : 'up')}`
       thumbBtns = (
@@ -249,9 +260,14 @@ class Job extends React.Component {
             </li>
           </div>
       )
+      collapseThumbContainerClassName = `edit-thumb${(this.state.thumb.collapsed ? ` collapsed-${job.thumb.size}` : '')}`
+      thumb = (
+        <div className={collapseThumbContainerClassName}>
+          <JobThumb job={job} />
+          {thumbBtns}
+        </div>
+      )
     }
-    
-    collapseThumbContainerClassName = `edit-thumb${(this.state.thumb.collapsed ? ` collapsed-${job.thumb.size}` : '')}`
 
     if (this.props.userProps.user.uid) {
       if (this.props.jobsProps.editing) {
@@ -271,10 +287,7 @@ class Job extends React.Component {
         <ul className="btns-list">
           {btns.map((btn, i) => <li key={i}>{btn}</li>)}
         </ul>
-        <div className={collapseThumbContainerClassName}>
-          <JobThumb job={job} />
-          {thumbBtns}
-        </div>
+        {thumb}
         <JobDetails job={job} editing={this.props.jobsProps.editing} handleRemoveImage={this.handleRemoveImage.bind(this)}>
           {addImage}
         </JobDetails>
