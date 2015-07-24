@@ -20,15 +20,14 @@ class Login extends React.Component {
     var userProps = this.props.userProps
     var message = ''
   
+    console.log(userProps.user)
     if (userProps.user.uid) {
       window.location.hash = ''
       return (<div className="hidden"></div>)
     }
   
     if (userProps.loading) {
-      return (
-        <p className="msg">authenticating</p>
-      )
+      message = (<p className="msg">authenticating</p>)
     }
 
     if (userProps.errorMessage) {
