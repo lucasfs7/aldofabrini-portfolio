@@ -147,7 +147,7 @@ class Job extends React.Component {
   }
 
   render() {
-    var job, images, btns, addImage, thumbBtns
+    var job, btns, addImage, thumbBtns
     
     thumbBtns = <div className="hidden" />
     addImage = <div className="hidden" />
@@ -164,7 +164,7 @@ class Job extends React.Component {
     
     if (this.props.jobsProps.editing) {
       job.images = union(this.state.images, job.images)
-      this.state.images = images
+      this.state.images = job.images
       thumbBtns = (
           <div className="buttons">
             <button type="button"><i className="fa fa-picture-o" /></button>
@@ -176,20 +176,20 @@ class Job extends React.Component {
 
     if (this.props.userProps.user.uid) {
       if (this.props.jobsProps.editing) {
-        addImage = <button type="button" onClick={this.handleAddImage.bind(this)}><i className="fa fa-picture-o" /></button>
-        btns.push(<button type="button" onClick={this.handleSave.bind(this)}><i className="fa fa-check" /></button>)
+        addImage = <button className="btn btn-add-image" onClick={this.handleAddImage.bind(this)}><i className="fa fa-picture-o" /></button>
+        btns.push(<button className="btn" onClick={this.handleSave.bind(this)}><i className="fa fa-check" /></button>)
       } else {
-        btns.push(<button type="button" onClick={this.handleStartEditing.bind(this)}><i className="fa fa-pencil" /></button>)
+        btns.push(<button className="btn" onClick={this.handleStartEditing.bind(this)}><i className="fa fa-pencil" /></button>)
       }
       if (!this.isNew()) {
-        btns.push(<button type="button" onClick={this.handleRemove.bind(this)}><i className="fa fa-trash" /></button>)
+        btns.push(<button className="btn" onClick={this.handleRemove.bind(this)}><i className="fa fa-trash" /></button>)
       }
     }
-    btns.push(<button type="button" onClick={this.handleClose.bind(this)}>x</button>)
+    btns.push(<button className="btn" onClick={this.handleClose.bind(this)}><i className="fa fa-times" /></button>)
   
     return (
       <div className="page page-job-details">
-        <ul className="page-header-links">
+        <ul className="btns-list">
           {btns.map((btn, i) => <li key={i}>{btn}</li>)}
         </ul>
         <div className="edit-thumb">
