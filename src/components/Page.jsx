@@ -3,8 +3,6 @@ import About from '../components/About'
 import Login from '../components/Login'
 import Job from '../components/Job'
 
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
 class Page extends React.Component {
   constructor() {
     super()
@@ -27,21 +25,19 @@ class Page extends React.Component {
     var page
 
     if (this.state.currentPage) {
-      let Child;
+      let Child
       switch (this.state.currentPage) {
         case 'about': Child = About; break;
         case 'login': Child = Login; break;
         default:      Child = Job;
       }
-      page = (<Child {...this.props} route={this.state.currentPage} key="1" />)
+      page = (<Child {...this.props} route={this.state.currentPage} />)
     } else {
-      page = <div className="hidden" key="2"></div>
+      page = (<div className="hidden"></div>)
     }
   
     return (
-      <ReactCSSTransitionGroup transitionName="page" className="page-container" component="div">
-        {page}
-      </ReactCSSTransitionGroup>
+      <div className="page-container">{page}</div>
     )
   }
 }
