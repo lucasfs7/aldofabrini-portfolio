@@ -204,6 +204,7 @@ class Job extends React.Component {
 
   render() {
     var job, btns, addImage, thumbBtns, collapseThumbClassName, collapseThumbContainerClassName
+    console.log(this.refs)
     
     thumbBtns = <div className="hidden" />
     addImage = <div className="hidden" />
