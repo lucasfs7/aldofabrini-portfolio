@@ -1,0 +1,9 @@
+{
+  "firebase": "aldo-fabrini-portfolio",
+  "public": "www",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
