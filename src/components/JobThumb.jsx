@@ -7,7 +7,7 @@ class JobThumb extends React.Component {
     image = <div className="hidden" />
 
     if (job.thumb.image) {
-      image = <img className="job-thumb-image" src={job.thumb.image} alt={job.name.long} ref="jobThumbImage" />
+      image = <img className="job-thumb-image" src={job.thumb.image} alt={job.name.long} ref="jobThumbImage" onLoad={this.props.handleImageLoad} />
     }
 
     return(
