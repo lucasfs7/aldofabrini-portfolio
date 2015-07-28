@@ -44,7 +44,7 @@ class Job extends React.Component {
     }
     return true
   }
-  
+
   verifyAccess(props) {
     if (!this.accessAllowed(props)) window.location.hash = ''
   }
@@ -103,7 +103,7 @@ class Job extends React.Component {
     Dropbox.choose({
       linkType: 'preview',
       multiselect: true,
-      extensions: ['.jpg', '.png', '.gif', '.bmp'],
+      extensions: ['.jpg', '.png', '.gif', '.bmp', '.avi', '.mp4', '.webm', '.ogv', '.ogg', '.mov'],
       success: (files) => {
         if (files.length) {
           let images = this.state.images
@@ -115,7 +115,7 @@ class Job extends React.Component {
       }
     })
   }
-  
+
   handleRemoveImage(e) {
     e.preventDefault()
     e.stopPropagation()

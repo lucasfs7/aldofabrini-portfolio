@@ -7,6 +7,14 @@ class JobDetails extends React.Component {
     children = this.props.children
     if (this.props.editing) rmImageBtn = <button className="btn btn-remove-image" onClick={this.props.handleRemoveImage}><i className="fa fa-trash" /></button>
 
+    var getFile = function(filename) {
+      var isVideo = /\.[(avi|mp4|webm|ogv|ogg|mov)]+$/i
+      var isImage = /\.[(jpg|png|gif|svg|bmp)]+$/i
+      var file = filename.replace('?dl=1', '')
+      if (isVideo.test(file)) return (<video src={filename} controls={true} />)
+      if (isImage.test(file)) return (<img src={filename} />)
+    }
+
     return (
       <div className="job-details">
         <h1 className="job-title edit-single" ref="jobTitle">{job.name.long}</h1>
@@ -18,7 +26,7 @@ class JobDetails extends React.Component {
             return (
               <li key={i}>
                 {rmImageBtn}
-                <img src={imgUrl} alt={`Image ${i}`} />
+                {getFile(imgUrl)}
               </li>
             )
           })}
