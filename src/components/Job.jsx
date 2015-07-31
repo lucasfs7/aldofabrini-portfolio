@@ -123,6 +123,8 @@ class Job extends React.Component {
     container = t = e.target
     while (container.nodeName.toLowerCase() !== 'li') container = t.parentNode
     img = container.getElementsByTagName('img')
+    if (!img.length) img = container.getElementsByTagName('video')
+    console.log(img)
     if (img.length) {
       url = img[0].src
       images = this.state.images
@@ -230,8 +232,7 @@ class Job extends React.Component {
     job = merge({}, this.schema, job)
     
     if (this.props.jobsProps.editing) {
-      job.images = union(this.state.images, job.images)
-      this.state.images = job.images
+      job.images = this.state.images
       if (!this.state.thumb.size) this.state.thumb.size = job.thumb.size
       job.thumb.size = this.state.thumb.size
       if (this.state.thumb.image) job.thumb.image = this.state.thumb.image
@@ -260,6 +261,8 @@ class Job extends React.Component {
             </li>
           </div>
       )
+    } else {
+      this.state.images = job.images
     }
 
     collapseThumbContainerClassName = `edit-thumb${(this.state.thumb.collapsed ? ` collapsed-${job.thumb.size}` : '')}${(!this.props.jobsProps.editing ? ' hidden' : '')}`
