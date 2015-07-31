@@ -121,10 +121,11 @@ class Job extends React.Component {
     e.stopPropagation()
     var t, img, container, url, images, imgIndex
     container = t = e.target
-    while (container.nodeName.toLowerCase() !== 'li') container = t.parentNode
+    while (container.nodeName.toLowerCase() !== 'li') {
+      container = container.parentNode
+    }
     img = container.getElementsByTagName('img')
     if (!img.length) img = container.getElementsByTagName('video')
-    console.log(img)
     if (img.length) {
       url = img[0].src
       images = this.state.images
