@@ -21,7 +21,7 @@ class Jobs extends React.Component {
     if (this.verifyImagesLoaded()) {
       let elems = document.querySelectorAll('.job-thumb')
       if (elems.length) {
-        for (let i = 0; i <= elems.length; i++) {
+        for (let i = 0; i < elems.length; i++) {
           setTimeout((function(elem) {
             return () => elem.classList.add('loaded')
           }(elems[i])), 100 * i)
@@ -33,7 +33,7 @@ class Jobs extends React.Component {
   render() {
     var jobsProps = this.props.jobsProps
     var msg = (<div className="hidden" />)
-  
+
     if (jobsProps.errorMessage) {
       return (<p className="msg error">{jobsProps.errorMessage}</p>)
     }
