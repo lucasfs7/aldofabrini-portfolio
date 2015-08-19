@@ -27,6 +27,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "airbrake-js": "^0.5.2",
     "body-parser": "^1.13.2",
     "compression": "^1.5.1",
     "express": "^4.13.1",
