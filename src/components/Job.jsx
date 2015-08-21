@@ -152,14 +152,24 @@ class Job extends React.Component {
   addThumbImage(e) {
     e.preventDefault()
     Dropbox.choose({
-      linkType: 'preview',
+      linkType: 'direct',
       multiselect: false,
       extensions: ['.jpg', '.png', '.gif', '.bmp'],
       success: (files) => {
         if (files.length) {
           let thumb = this.state.thumb
-          thumb.image = files[0].link.replace('dl=0', 'dl=1')
-          this.setState({thumb: thumb})
+          let c = document.createElement('canvas')
+          let ctx = c.getContext('2d')
+          let img = new Image()
+          img.setAttribute('crossOrigin', 'anonymous')
+          img.onload = () => {
+            c.width = img.width
+            c.height = img.height
+            ctx.drawImage(img, 0, 0, img.width, img.height)
+            thumb.image = c.toDataURL()
+            this.setState({thumb: thumb})
+          }
+          img.src = files[0].link
         }
       }
     })
