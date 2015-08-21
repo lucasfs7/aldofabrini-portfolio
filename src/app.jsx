@@ -11,6 +11,8 @@ var start = function () {
   React.render(<Home />, document.getElementById('app-body'))
 }
 
-start = airbrake.wrap(start)
+if (config.env === 'production') {
+  start = airbrake.wrap(start)
+}
 
 start()
