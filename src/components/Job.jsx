@@ -29,6 +29,7 @@ class Job extends React.Component {
     merge(this.editor.multLineOptions, this.editor.options)
     merge(this.editor.singleLineOptions, this.editor.options)
     this.schema = this.props.jobSchema()
+    this.tracked = false
   }
 
   isNew(nextProps) {
@@ -224,6 +225,13 @@ class Job extends React.Component {
 
   componentWillUnmount() {
     this.stopEditing()
+    this.track('/')
+  }
+
+  track(page) {
+    if (!window.ga) return false
+    ga('send', 'pageview', page)
+    return true
   }
 
   render() {
@@ -235,8 +243,14 @@ class Job extends React.Component {
     
     if (this.props.jobsProps.loading) return (<p>Loading</p>)
     
-    if (this.isNew()) job = this.schema
-    else job = this.getJob(this.props)
+    if (this.isNew()) {
+      job = this.schema
+    } else {
+      job = this.getJob(this.props)
+      if (!this.tracked) {
+        this.tracked = this.track(`/${this.props.route}`)
+      }
+    }
     
     if (!job) return (<p className="msg error">Desculpe, mas não encontramos essa página.</p>)
     
