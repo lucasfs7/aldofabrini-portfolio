@@ -7,6 +7,7 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var changed = require('gulp-changed');
+var uglify = require('gulp-uglify');
 
 var path = {
   layouts: './src/layouts/**/*.jade',
@@ -59,16 +60,21 @@ gulp.task('compile:css', function () {
 });
 
 gulp.task("compile:js", function () {
-  browserify({
+  var t = browserify({
     entries: path.bundleEntry,
     extensions: ['.jsx'],
-    debug: true,
+    debug: (process.env.NODE_ENV === 'development'),
     insertGlobals: true
   })
   .transform(babelify)
   .bundle()
-  .pipe(source('bundle.js'))
-  .pipe(gulp.dest(path.dest.js));
+  .pipe(source('bundle.js'));
+
+  if (process.env.NODE_ENV === 'production') {
+    t = t.pipe(uglify());
+  }
+
+  t = t.pipe(gulp.dest(path.dest.js));
 });
 
 gulp.task('compress:images', function() {
