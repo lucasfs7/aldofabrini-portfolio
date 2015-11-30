@@ -8,6 +8,7 @@ var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var changed = require('gulp-changed');
 var uglify = require('gulp-uglify');
+var buffer = require('vinyl-buffer');
 
 var path = {
   layouts: './src/layouts/**/*.jade',
@@ -71,7 +72,8 @@ gulp.task("compile:js", function () {
   .pipe(source('bundle.js'));
 
   if (process.env.NODE_ENV === 'production') {
-    t = t.pipe(uglify());
+    t = t.pipe(buffer())
+    .pipe(uglify());
   }
 
   t = t.pipe(gulp.dest(path.dest.js));

@@ -30,6 +30,7 @@
     "morgan": "^1.6.1",
     "pm2": "^0.14.3",
     "react": "^0.13.3",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
 }
